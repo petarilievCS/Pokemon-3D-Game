@@ -37,7 +37,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Add AR images to track
         if let imageToTrack = ARReferenceImage.referenceImages(inGroupNamed: "Pokemon Cards", bundle: Bundle.main) {
             configuration.trackingImages = imageToTrack
-            configuration.maximumNumberOfTrackedImages = 1
+            configuration.maximumNumberOfTrackedImages = 2
             print("Images to track successfully added")
         }
         
@@ -62,6 +62,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         if let imageAnchor = anchor as? ARImageAnchor {
             
+            let pokemonName = imageAnchor.referenceImage.name
+            
             let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
             plane.firstMaterial?.diffuse.contents = UIColor(white: 1.0, alpha: 0.6)
             
@@ -69,7 +71,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             planeNode.eulerAngles.x = -Float.pi / 2
             node.addChildNode(planeNode)
             
-            let pokemonScene = SCNScene(named: "art.scnassets/eevee.scn")!
+            let pokemonScene = SCNScene(named: "art.scnassets/" + pokemonName! + ".scn")!
             let pokemonNode = pokemonScene.rootNode.childNodes.first!
             pokemonNode.eulerAngles.x = Float.pi / 2
             planeNode.addChildNode(pokemonNode)
