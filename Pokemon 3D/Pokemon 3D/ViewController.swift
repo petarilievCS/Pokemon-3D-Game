@@ -16,16 +16,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set the view's delegate
         sceneView.delegate = self
-        
-        
-        // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
-        
-        // Add light source
         sceneView.autoenablesDefaultLighting = true
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,9 +31,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         if let imageToTrack = ARReferenceImage.referenceImages(inGroupNamed: "Pokemon Cards", bundle: Bundle.main) {
             configuration.trackingImages = imageToTrack
             configuration.maximumNumberOfTrackedImages = 2
-            print("Images to track successfully added")
+
         }
-        
         
         // Run the view's session
         sceneView.session.run(configuration)
@@ -77,10 +69,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             planeNode.addChildNode(pokemonNode)
             
         }
-        
-        
         return node
-        
     }
     
 }
