@@ -19,8 +19,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Set the view's delegate
         sceneView.delegate = self
         
+        
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
+        
+        // Add light source
+        sceneView.autoenablesDefaultLighting = true
         
     }
     
@@ -51,7 +55,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     // MARK: - ARSCNViewDelegate
     
-    
     // Render a 3D Pokemon when card is detected
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         
@@ -65,6 +68,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             let planeNode = SCNNode(geometry: plane)
             planeNode.eulerAngles.x = -Float.pi / 2
             node.addChildNode(planeNode)
+            
+            let pokemonScene = SCNScene(named: "art.scnassets/eevee.scn")!
+            let pokemonNode = pokemonScene.rootNode.childNodes.first!
+            pokemonNode.eulerAngles.x = Float.pi / 2
+            planeNode.addChildNode(pokemonNode)
+            
         }
         
         
